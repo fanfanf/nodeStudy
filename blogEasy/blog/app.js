@@ -5,6 +5,10 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var routes = require('./routes/index');
+var settings = require('./settings');
+var flash = require('connect-flash');
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 
 // 生成一个express实例app
 var app = express();
@@ -27,6 +31,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 // 设置public文件夹为存放静态文件的目录
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(flash());
+app.use(session({
+  secret: settings.cookieSecret,
+  key: settings.db,//cookie name
+  cookie: { maxAge: 1000 * 60 * 60 * 24 * 30 },//30 days
+  store: new MongoStore({
+    db: settings.db,
+    host: settings.host,
+    port: settings.port,
+    url: 'mongodb://localhost/blog'
+  })
+}));
 
 // 通过routes(app) 调用了 index.js 导出的函数，实现到哪个路径下该显示什么内容
 routes(app);

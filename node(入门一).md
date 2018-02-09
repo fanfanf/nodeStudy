@@ -1,6 +1,7 @@
 <!-- TITLE: node入门一 -->
 <!-- SUBTITLE: node入门一 -->
 express框架介绍：http://ourjs.com/detail/56b2a6f088feaf2d031d2468
+Vue+Node+MongoDB: http://blog.csdn.net/qq_26598303/article/details/53468399
 
 # 什么是node
 1.Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境，就好比JDK是java的运行环境
